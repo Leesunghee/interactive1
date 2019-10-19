@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Bye</title>
+<style>
+body {
+  margin: 0;
+  background: #fff000;
+}
+button {
+  position: fixed;
+  left: 10px;
+  bottom: 20px;
+}
+</style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<button class="restore-btn">restore</button>
+<script>
+(() => {
+  const particles = [];
+  const imgWidth = 260;
+  const imgHeight = 260;
+  const canvas = document.getElementById('canvas');
+  const context = canvas.getContext('2d');
+  const restoreBtn = document.querySelector('.restore-btn');
+
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+
+  const imgX = (canvas.width - imgWidth) / 2;
+  const imgY = (canvas.height - imgHeight) / 2;
+
+  const imgElem = document.createElement('img');
+  imgElem.src = '../images/ilbuni-1.png';
+  imgElem.addEventListener('load', () => {
+    context.drawImage(imgElem, imgX, imgY, imgWidth, imgHeight);
+
+    // const imgData = context.createImageData(800, 600);
+    const imgData = context.getImageData(imgX, imgY, imgWidth, imgHeight);
+
+    for (let y = 0; y < imgData.height; y++) {
+      for (let x = 0; x < imgData.width; x++) {
+        if (imgData.data[(x * 4 + y * 4 * imgData.width) + 3] > 128) {
+          const particle = {
+            color: `rgb(${imgData.data[(x * 4 + y * 4 * imgData.width)]}, ${imgData.data[(x * 4 + y * 4 * imgData.width) + 1]}, ${imgData.data[(x * 4 + y * 4 * imgData.width) + 2]})`,
+            x: x + imgX,
+            y: y + imgY,
+            velocity: Math.random() * 0.5,
+            easeValue: Math.random() * 5
+          };
+          particles.push(particle);
+        }
+      }
+    }
+
+    const endX = canvas.width;
+    const endY = canvas.height;
+    const radians = [];
+    let playFrames = 0;
+
+    function setRadians() {
+      for (let i = 0; i < particles.length; i++) {
+        radians.push(Math.random() * 360 * Math.PI / 180);
+      }
+    }
+
+    let rafId1;
+    function loopAni() {
+      let particle;
+      for (let i = 0; i < particles.length; i++) {
+        particle = particles[i];
+        particle.x = particle.x + Math.cos(radians[i]) * particle.velocity * particle.easeValue;
+        particle.y = particle.y + Math.sin(radians[i]) * particle.velocity * particle.easeValue;
+      }
+      render();
+      playFrames++;
+      rafId1 = requestAnimationFrame(loopAni);
+    }
+
+    let rafId2;
+    function loopAniBack() {
+      let particle;
+      for (let i = 0; i < particles.length; i++) {
+        particle = particles[i];
+        particle.x = particle.x - Math.cos(radians[i]) * particle.velocity * particle.easeValue;
+        particle.y = particle.y - Math.sin(radians[i]) * particle.velocity * particle.easeValue;
+      }
+      render();
+      playFrames--;
+      if (playFrames <= 0) return;
+      rafId2 = requestAnimationFrame(loopAniBack);
+    }
+
+    function render() {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      let particle;
+      for (let i = 0; i < particles.length; i++) {
+        particle = particles[i];
+        context.fillStyle = particle.color;
+        context.fillRect(particle.x, particle.y, 1, 1);
+      }
+    }
+
+    setRadians();
+
+    canvas.addEventListener('click', function () {
+      cancelAnimationFrame(rafId2);
+      loopAni();
+    });
+
+    restoreBtn.addEventListener('click', function () {
+      cancelAnimationFrame(rafId1);
+      loopAniBack();
+    });
+
+  });
+})();
+</script>
+</body>
+</html>

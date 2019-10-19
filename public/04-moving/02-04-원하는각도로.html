@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Interactive Web</title>
+  <link rel="stylesheet" href="../default.css">
+  <style>
+  body {
+    height: 100%;
+  }
+  .stage {
+    height: 100%;
+  }
+  .point {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    margin: -3px 0 0 -3px;
+    border-radius: 50%;
+    background: black;
+  }
+  .ball {
+    position: absolute;
+    left: 50%;
+    top : 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border-radius: 50%;
+    background: dodgerblue;
+  }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <h1 class="subject">원하는 각도로 이동</h1>
+    <div class="point"></div>
+    <input type="text" class="degreeInput">
+    <button class="btn">버튼</button>
+  </div>
+
+  <script>
+    const stage = document.querySelector('.stage');
+    const degreeInput = document.querySelector('.degreeInput');
+    const btn = document.querySelector('.btn');
+    const oX = innerWidth * 0.5;
+    const oY = innerHeight * 0.5;
+
+    function toRadian(d) {
+      return d * Math.PI / 180;
+    }
+
+    function Ball(degree) {
+      this.r = 5;
+      this.radian = toRadian(degree);
+
+      this.elem = document.createElement('div');
+      this.elem.classList.add('ball');
+
+      stage.appendChild(this.elem);
+
+      this.move = function() {
+        this.x = Math.cos(this.radian) * this.r;
+        this.y = Math.sin(this.radian) * this.r;
+        this.elem.style.transform = 'translate(' + this.x + 'px, ' + this.y + 'px)';
+
+      }
+
+    }
+
+    function action(degree) {
+
+      const ball = new Ball(degree);
+
+      function loop() {
+        ball.r += 5;
+        ball.move();
+        requestAnimationFrame(loop);
+      }
+
+      loop();
+    }
+
+    btn.addEventListener('click', function() {
+      action(degreeInput.value);
+    });
+
+  </script>
+</body>
+</html>

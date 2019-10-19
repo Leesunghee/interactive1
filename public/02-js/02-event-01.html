@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Interactive Web</title>
+  <link rel="stylesheet" href="../default.css">
+</head>
+<style>
+  .wrapper {
+    padding: 1rem;
+    background: #fff000;
+  }
+  .btn {
+    font-size: 2rem;
+  }
+</style>
+<body>
+<div class="wrapper">
+  <button class="btn btn-a">버튼</button>
+  <button class="btn btn-b">버튼</button>
+</div>
+
+<script>
+  function clickBtnHandler(e) {
+    console.log(e.currentTarget === this);
+    console.log(e.target);
+  }
+  const wrapper = document.querySelector('.wrapper');
+  const btnA = document.querySelector('.btn-a');
+  const btnB = document.querySelector('.btn-b');
+  wrapper.addEventListener('click', clickBtnHandler);
+  // btnA.addEventListener('click', clickBtnHandler);
+  // btnB.addEventListener('click', clickBtnHandler);
+</script>
+</body>
+</html>

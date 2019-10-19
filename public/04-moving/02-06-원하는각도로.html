@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Interactive Web</title>
+  <link rel="stylesheet" href="../default.css">
+  <style>
+  body {
+    height: 100%;
+  }
+  .stage {
+    height: 100%;
+  }
+  .point {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    margin: -3px 0 0 -3px;
+    border-radius: 50%;
+    background: black;
+  }
+  .ball {
+    position: absolute;
+    left: 50%;
+    top : 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border-radius: 50%;
+    background: dodgerblue;
+  }
+  .cannon {
+    position: absolute;
+    left: calc(50% - 10px);
+    top: calc(50% - 70px);
+    z-index: 10;
+    width: 20px;
+    height: 70px;
+    background: blue;
+    transform-origin: center bottom;
+  }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <h1 class="subject">원하는 각도로 이동</h1>
+    <div class="point"></div>
+    <div class="cannon"></div>
+  </div>
+
+  <script>
+    const stage = document.querySelector('.stage');
+    const cannon = document.querySelector('.cannon');
+    const oX = innerWidth * 0.5;
+    const oY = innerHeight * 0.5;
+    let mouseX;
+    let mouseY;
+    // const mousePos = { x: 0, y: 0 };
+
+    function toRadian(d) {
+      return d * Math.PI / 180;
+    }
+
+    function toDegree(r) {
+      return r * 180 / Math.PI;
+    }
+
+    function Ball(mouseX, mouseY) {
+      const self = this;
+      let r = 5;
+      this.elem = document.createElement('div');
+      this.elem.classList.add('ball');
+      stage.appendChild(this.elem);
+
+      const dx = mouseX - oX;
+      const dy = mouseY - oY;
+      const radian = Math.atan2(dy, dx);
+      // console.log(toDegree(radian));
+
+      let xPos;
+      let yPos;
+
+      function loop() {
+        xPos = Math.cos(radian) * r;
+        yPos = Math.sin(radian) * r;
+        self.elem.style.transform = 'translate(' + xPos + 'px, ' + yPos + 'px)';
+        r += 5;
+
+        requestAnimationFrame(loop);
+      }
+      loop();
+
+    }
+
+    window.addEventListener('click', function(e) {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      new Ball(mouseX, mouseY);
+    });
+
+    window.addEventListener('mousemove', function (e) {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+
+      const dx = mouseX - oX;
+      const dy = mouseY - oY;
+      const radian = Math.atan2(dy, dx);
+      cannon.style.transform = 'rotate(' + (toDegree(radian) + 90) + 'deg)';
+
+
+    });
+
+
+  </script>
+</body>
+</html>

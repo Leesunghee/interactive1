@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Interactive Web</title>
+  <link rel="stylesheet" href="../default.css">
+</head>
+<body>
+<h1>객체(Object</h1>
+<p>속성과 메서드(기능)을 가진 집합체</p>
+
+<script>
+
+  // 생성자(constructor)
+  class Person {
+    constructor(nickname, age) {
+      this.nickname = nickname;
+      this.age = age;
+    }
+
+    introduce() {
+      // console.log('안녕? 나는 ' + this.nickname + ' 나이는 ' + this.age + '살. 만나서 반가위.!');
+      console.log(`안녕? 나는 ${this.nickname} 나이는 ${this.age} 살. 만나서 반가위.!`);
+    }
+  }
+
+  // Person.prototype.introduce = function() {
+  //   console.log('안녕? 나는 ' + this.nickname + ' 나이는 ' + this.age + '살. 만나서 반가위.!');
+  // };
+
+  // Person.prototype = {
+  //   constructor: Person,
+  //   introduce: function () {
+  //     console.log('안녕? 나는 ' + this.nickname + ' 나이는 ' + this.age + '살. 만나서 반가위.!');
+  //   },
+  //   init: function() {
+  //     console.log('초기화');
+  //   }
+  // };
+
+
+
+
+  // 인스턴스(instance)
+  const p1 = new Person('leecaption', 10);
+  // const p2 = Person('jucpation', 40);
+
+  p1.introduce();
+  // p2.introduce();
+</script>
+</body>
+</html>

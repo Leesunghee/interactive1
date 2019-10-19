@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Interactive Web</title>
+  <link rel="stylesheet" href="../default.css">
+  <style>
+    .menu {
+      border: 2px solid black;
+    }
+
+    .menu-item {
+      background: orange;
+    }
+
+    .active {
+      border: 10px solid red;
+    }
+  </style>
+
+  <script>
+    // window.addEventListener('load', function() {
+    //   const menu = document.querySelector('.menu');
+    //   console.log(menu);
+    // });
+    // window.addEventListener('DOMContentLoaded', function() {
+    //   const menu = document.querySelector('.menu');
+    //   console.log(menu);
+    // });
+
+  </script>
+</head>
+<body>
+  <div class="menu">
+    <div class="menu-item">1</div>
+    <div class="menu-item">2</div>
+    <div class="menu-item">3</div>
+    <div class="menu-item">4</div>
+    <div class="menu-item">5</div>
+  </div>
+
+<script>
+  // (function() {
+  //   const menu = document.querySelector('.menu');
+  //   console.log(menu);
+  // })();
+
+  !function() {
+    const menu = document.querySelector('.menu');
+    const menuItems = document.querySelectorAll('.menu-item');
+
+    // menuItems[0].classList.add('active');
+    // menuItems[0].classList.remove('active');
+
+    menu.addEventListener('click', function() {
+      // if (menuItems[0].classList.contains('active')) {
+      //   menuItems[0].classList.remove('active');
+      // } else {
+      //   menuItems[0].classList.add('active');
+      // }
+      menuItems[0].classList.toggle('active');
+    });
+
+    console.log(menu);
+    console.log(menuItems);
+  }();
+
+</script>
+</body>
+</html>

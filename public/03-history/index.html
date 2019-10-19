@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Interactive Web</title>
+  <link rel="stylesheet" href="../default.css">
+  <style>
+  .panel {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding: 1em;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.7);
+  }
+  .menu-on .panel {
+    display: block;
+  }
+  .menu {
+    display: flex;
+  }
+  .menu__item {
+    margin: 1em;
+    padding: 0.5em;
+    color: dodgerblue;
+    text-decoration: none;
+    background: #fff000;
+  }
+  </style>
+</head>
+<body>
+<nav class="menu">
+  <a href="/01/" class="menu__item" title="menu01">menu01</a>
+  <a href="/02/" class="menu__item" title="menu02">menu02</a>
+  <a href="/03/" class="menu__item" title="menu03">menu03</a>
+  <a href="/04/" class="menu__item" title="menu04">menu04</a>
+  <a href="/05/" class="menu__item" title="menu05">menu05</a>
+</nav>
+
+<section class="panel">
+  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque reiciendis ex molestias cum labore repudiandae quaerat debitis mollitia molestiae natus magni animi quam voluptatem, eligendi temporibus enim veritatis quo distinctio.
+</section>
+
+<script>
+const menu = document.querySelector('.menu');
+
+function setState(menu, text, link, callback) {
+  history.pushState({ menu: text }, text, link);
+  // history.state.menu로 접근
+  console.log(history.state.menu);
+
+  if (callback) {
+    callback();
+  }
+}
+
+function popStateHandler() {
+  console.log('pop!');
+  document.body.classList.remove('menu-on');
+}
+
+window.addEventListener('popstate', popStateHandler);
+
+menu.addEventListener('click', function (e) {
+  e.preventDefault();
+  const menuLink = e.target.getAttribute('href');
+  const menuTitle = e.target.getAttribute('title');
+  setState(menuLink, menuTitle, menuLink, function() {
+    console.log('push!');
+    document.body.classList.add('menu-on');
+  });
+});
+</script>
+</body>
+</html>
+
+

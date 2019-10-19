@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Interactive Web</title>
+  <link rel="stylesheet" href="../default.css">
+  <style>
+    .stage {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+      height: 100vh;
+      perspective: 400px;
+    }
+    .card {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      width: 100px;
+      height: 150px;
+      margin: 10px;
+      border-radius: 10px;
+      /*background: dodgerblue;*/
+      /*transform: perspective(400px) rotateY(45deg);*/
+      /*transform: rotateY(45deg);*/
+      transition: 0.5s;
+      transform-style: preserve-3d;
+    }
+    .card__face {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      backface-visibility: hidden;
+    }
+    .card__face--front {
+      background: red;
+
+    }
+    .card__face--back {
+      background: green;
+      transform: rotateY(180deg);
+    }
+    .card-check {
+      position: absolute;
+      left: -9999px;
+    }
+    .card-check:checked + .card {
+      transform: rotateY(180deg);
+    }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <!--<label for="card-check">label</label>-->
+    <input type="checkbox" id="card-check" class="card-check">
+    <label class="card" for="card-check">
+      <div class="card__face card__face--front">앞</div>
+      <div class="card__face card__face--back">뒤</div>
+    </label>
+
+    <input type="checkbox" id="card-check2" class="card-check">
+    <label class="card" for="card-check2">
+      <div class="card__face card__face--front">앞</div>
+      <div class="card__face card__face--back">뒤</div>
+    </label>
+
+    <input type="checkbox" id="card-check3" class="card-check">
+    <label class="card" for="card-check3">
+      <div class="card__face card__face--front">앞</div>
+      <div class="card__face card__face--back">뒤</div>
+    </label>
+</body>
+</html>

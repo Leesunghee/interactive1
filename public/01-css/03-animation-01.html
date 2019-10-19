@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Interactive Web</title>
+  <link rel="stylesheet" href="../default.css">
+  <style>
+    @keyframes box-ani {
+      30% {
+        transform: scale(1.5);
+      }
+      100% {
+        background: blue;
+        transform: scale(1.5);
+      }
+    }
+    .box {
+      width: 100px;
+      height: 100px;
+      /*margin: 100px;*/
+      background: red;
+      animation: box-ani 2s infinite alternate;
+    }
+    /*.box:hover {*/
+      /*animation: box-ani 2s;*/
+    /*}*/
+  </style>
+</head>
+<body>
+<div class="box"></div>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus accusantium adipisci commodi cumque dicta doloribus dolorum eos illo illum, impedit iste, laudantium, nostrum odit omnis perspiciatis porro quasi quis saepe!</p>
+</body>
+</html>

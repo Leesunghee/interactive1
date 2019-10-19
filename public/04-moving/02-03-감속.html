@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Interactive Web</title>
+  <link rel="stylesheet" href="../default.css">
+  <style>
+  body {
+    height: 100%;
+  }
+  .stage {
+    height: 100%;
+  }
+  .ball {
+    position: absolute;
+    bottom: 100px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: dodgerblue;
+  }
+  .line {
+    position: absolute;
+    right: 10%;
+    bottom: 0;
+    width: 2px;
+    height: 150px;
+    background: #000;
+  }
+  .line {
+    position: absolute;
+    bottom: 0;
+    width: 2px;
+    height: 20px;
+    background: #000;
+  }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <h1 class="subject">감속</h1>
+    <div class="ball"></div>
+    <div class="line"></div>
+  </div>
+
+
+  <script>
+    let ballX = 5;
+    const easeValue = 0.01;
+    const ball = document.querySelector('.ball');
+    const stage = document.querySelector('.stage');
+    const line = document.querySelector('.line');
+    const endX = line.getBoundingClientRect().left;
+
+    function loop() {
+      const dx = endX - ballX;
+      ballX = ballX + dx * easeValue;
+      console.log(ballX);
+      ball.style.transform = 'translateX(' + ballX + 'px)';
+      const line = document.createElement('div');
+      line.classList.add('line');
+      line.style.left = ballX + 'px';
+      stage.appendChild(line);
+
+      if (dx < 0.1) {
+        return ;
+      }
+      requestAnimationFrame(loop);
+    }
+
+    ball.addEventListener('click', loop);
+  </script>
+</body>
+</html>

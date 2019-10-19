@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Interactive Web</title>
+  <link rel="stylesheet" href="../default.css">
+  <style>
+  .canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff000;
+  }
+  </style>
+</head>
+<body>
+<canvas class="canvas"></canvas>
+
+<script>
+  const canvas = document.querySelector('.canvas');
+  const context = canvas.getContext('2d');
+
+  let xPos = 0;
+
+  function draw() {
+    // setSize();
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    // context.fillRect(xPos++, 20, 100, 120);
+    context.beginPath();
+    context.arc(xPos++, 100, 10, 0, Math.PI * 2, false);
+    context.fill();
+    context.closePath();
+    requestAnimationFrame(draw);
+  }
+
+  function setSize() {
+    canvas.width = innerWidth * 2;
+    canvas.height = innerHeight * 2;
+  }
+
+  window.addEventListener('resize', setSize);
+  setSize();
+
+
+  draw();
+
+
+</script>
+</body>
+</html>

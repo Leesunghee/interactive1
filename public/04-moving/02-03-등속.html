@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Interactive Web</title>
+  <link rel="stylesheet" href="../default.css">
+  <style>
+  body {
+    height: 100%;
+  }
+  .stage {
+    height: 100%;
+  }
+  .ball {
+    position: absolute;
+    left: 0;
+    bottom: 100px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: dodgerblue;
+  }
+  .ilbuni {
+    position: absolute;
+    right: 10%;
+    bottom: 0;
+    width: 150px;
+    transform-origin: center bottom;
+    transition: 0.5s;
+  }
+  .ilbuni--down {
+    transform: rotate(90deg);
+  }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <h1 class="subject">등속</h1>
+    <!--<div class="ball"></div>-->
+    <figure class="ilbuni"><img src="../images/ilbuni.png" alt="일분이"></figure>
+  </div>
+  <script>
+    (function() {
+      let ballX = 0;
+      const ilbuni = document.querySelector('.ilbuni');
+      const stage = document.querySelector('.subject');
+      // const ball = document.querySelector('.ball');
+      const ilbuniRect = ilbuni.getBoundingClientRect();
+
+      function Ball(xPos) {
+        this.xPos = xPos || 0;
+        this.init();
+      }
+
+      Ball.prototype = {
+        constructor: Ball,
+        init: function () {
+          const self = this;
+          this.elem = document.createElement('div');
+          this.elem.classList.add('ball');
+          stage.appendChild(this.elem);
+          this.elem.style.transform = 'translateX(' + this.xPos + 'px)';
+          this.elem.addEventListener('click', function() {
+            self.update();
+          });
+        },
+        update: function() {
+          const self = this;
+          this.elem.style.transform = 'translateX(' + this.xPos + 'px)';
+          this.xPos += 5;
+          requestAnimationFrame(function() {
+            if (self.xPos >= ilbuniRect.left + 10) {
+              ilbuni.classList.add('ilbuni--down');
+            }
+            self.update();
+          });
+        }
+      };
+
+      for (let i = 0; i < 3; i++) {
+        new Ball(Math.random() * 100);
+      }
+
+    })();
+  </script>
+</body>
+</html>

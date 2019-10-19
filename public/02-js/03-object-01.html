@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Interactive Web</title>
+  <link rel="stylesheet" href="../default.css">
+</head>
+<body>
+<h1>객체(Object</h1>
+<p>속성과 메서드(기능)을 가진 집합체</p>
+
+<script>
+  const person = {};
+  person.nickname = 'leecaption';
+  person.age = 77;
+  person.introduce = function() {
+    console.log('안녕? 나는 ' + this.nickname + ' 나이는 ' + this.age + '살. 만나서 반가위.!');
+  };
+
+  person.introduce();
+
+  const person2 = {
+    nickname: 'jucaption',
+    age: 40,
+    introduce: function() {
+      console.log('안녕? 나는 ' + this.nickname + ' 나이는 ' + this.age + '살. 만나서 반가위.!')
+    }
+  };
+
+  person2.introduce();
+</script>
+</body>
+</html>

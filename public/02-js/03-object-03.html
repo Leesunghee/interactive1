@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Interactive Web</title>
+  <link rel="stylesheet" href="../default.css">
+</head>
+<body>
+<h1>객체(Object</h1>
+<p>속성과 메서드(기능)을 가진 집합체</p>
+
+<script>
+
+  // 생성자(constuctor)
+  function Person(nickname, age) {
+    console.log(this instanceof Person);
+    if (!(this instanceof Person)) {
+      // 만약에 this가 Person의 인스턴스가 아니라면
+      return new Persion(nickname, age);
+    }
+    this.nickname = nickname;
+    this.age = age;
+    this.introduce = function() {
+      console.log('안녕? 나는 ' + this.nickname + ' 나이는 ' + this.age + '살. 만나서 반가위.!');
+    }
+  }
+
+  // 인스턴스(instance)
+  const p1 = new Person('leecaption', 10);
+  const p2 = Person('jucpation', 40);
+
+  p1.introduce();
+  p2.introduce();
+</script>
+</body>
+</html>

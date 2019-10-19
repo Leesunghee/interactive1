@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Interactive Web</title>
+  <link rel="stylesheet" href="../default.css">
+  <style>
+  body {
+    height: 100%;
+  }
+  .stage {
+    height: 100%;
+  }
+  .point {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    margin: -3px 0 0 -3px;
+    border-radius: 50%;
+    background: black;
+  }
+  .ball {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border-radius: 50%;
+    background: dodgerblue;
+  }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <div class="point"></div>
+    <div class="ball"></div>
+  </div>
+
+  <script>
+    const ball = document.querySelector('.ball');
+    let ballX = 0;
+    let ballY = 0;
+    let degree = 0; // 각도
+
+    function toRadian(d) {
+      return d * Math.PI / 180;
+    }
+
+
+    function render() {
+
+      ballX = Math.cos(toRadian(degree)) * 200;
+      ballY = Math.sin(toRadian(degree)) * 200;
+      ball.style.transform = 'translate(' + ballX + 'px, ' + ballY + 'px)';
+      degree++;
+      requestAnimationFrame(render);
+    }
+
+    render();
+  </script>
+</body>
+</html>

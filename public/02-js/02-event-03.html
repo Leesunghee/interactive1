@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Interactive Web</title>
+  <link rel="stylesheet" href="../default.css">
+</head>
+<style>
+  .wrapper {
+    padding: 1rem;
+    background: #fff000;
+  }
+  .btn {
+    font-size: 2rem;
+  }
+  .icon {
+    display: inline;
+    width: 10px;
+    height: 10px;
+    background: #000;
+  }
+</style>
+<body>
+<div class="wrapper">
+  <button class="btn btn-a" data-menu="A">
+    <i class="icon"></i>
+    버튼</button>
+  <button class="btn btn-b" data-menu="B">
+    <i class="icon"></i>버튼</button>
+  <button class="btn btn-c" data-menu="C">
+    <i class="icon"></i>버튼</button>
+</div>
+
+<script>
+  function clickBtnHandler(e) {
+    let elem = e.target;
+
+    while (!elem.getAttribute('data-menu')) {
+      elem = elem.parentNode;
+      if (elem.nodeName == 'BODY') {
+        elem = null;
+        return;
+      }
+    }
+
+    console.log(elem.getAttribute('data-menu') + ' 메뉴 클릭');
+  }
+  const wrapper = document.querySelector('.wrapper');
+
+  wrapper.addEventListener('click', clickBtnHandler);
+  // btnB.addEventListener('click', clickBtnHandler);
+  // btnC.addEventListener('click', clickBtnHandler);
+</script>
+</body>
+</html>

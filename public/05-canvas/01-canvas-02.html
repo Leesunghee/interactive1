@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Interactive Web</title>
+  <link rel="stylesheet" href="../default.css">
+  <style>
+  body {
+    height: 500vh;
+  }
+  .bg-canvas {
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: #fff000;
+  }
+  </style>
+</head>
+<body>
+<div>
+  <canvas class="bg-canvas"></canvas>
+
+  <script>
+    const canvas = document.querySelector('.bg-canvas');
+    const context = canvas.getContext('2d');
+    const ilbuniArray = [];
+
+    function Ilbuni(x, y, size, imgNum) {
+      const self = this;
+
+      this.x = x || 50;
+      this.y = y || 50;
+      this.originY = this.y;
+      this.size = size || 100;
+      this.imgElem = document.createElement('img');
+      this.imgElem.src = '../images/ilbuni-' + imgNum + '.png';
+      this.imgElem.addEventListener('load', function() {
+        //context.drawImage(self.imgElem, 0, self.y, self.size, self.size);
+        self.draw();
+      });
+    }
+
+    Ilbuni.prototype.draw = function() {
+      context.drawImage(this.imgElem, this.x, this.y, this.size, this.size);
+    }
+
+    function setSize() {
+      canvas.width = innerWidth * 2;
+      canvas.height = innerHeight * 2;
+    }
+
+    let scrollRatio;
+    function scrollHandler() {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < ilbuniArray.length; i++) {
+        const ilbuni = ilbuniArray[i];
+
+        // console.log(pageYOffset / (document.body.offsetHeight - innerHeight));
+        scrollRatio = pageYOffset / (document.body.offsetHeight);
+        ilbuni.y = ilbuni.originY + (innerHeight - ilbuni.originY) * scrollRatio;
+        ilbuni.draw();
+      }
+    }
+
+    window.addEventListener('resize', setSize);
+    window.addEventListener('scroll', scrollHandler);
+
+    setSize();
+    let ilbuniX;
+    let ilbuniY;
+    let ilbuniSize;
+    let ilbuniimgNum;
+
+    for (let i = 0; i < 100; i++) {
+      ilbuniX = Math.random() * innerWidth * 0.9;
+      ilbuniY = Math.random() * innerHeight * 0.5;
+      ilbuniSize = Math.random() * 100 + 30;
+      ilbuniimgNum = Math.floor(Math.random() * 4) + 1;
+      ilbuniArray.push(new Ilbuni(ilbuniX, ilbuniY, ilbuniSize, ilbuniimgNum));
+    }
+
+
+  </script>
+</div>
+</body>
+</html>
